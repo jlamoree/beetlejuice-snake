@@ -6,8 +6,8 @@ const int triggerSwitchPin = 12;
 const int stepperPulsePin = 7;
 const int stepperDirectionPin = 6;
 const int waitBeforeDeploy = 6000;
-const int deployedPosition = -225;
-const unsigned long deployDurationMillis = 2000;
+const int deployedPosition = -235;
+const unsigned long deployDurationMillis = 5500;
 
 unsigned long deployMillis = 0;
 bool triggerSwitchPressed = false;
@@ -30,7 +30,7 @@ void runRoutine() {
   if (routineState == 1) {
     if (stepper.targetPosition() != deployedPosition) {
       stepper.setMaxSpeed(800);
-      stepper.setAcceleration(60);
+      stepper.setAcceleration(40);
       stepper.moveTo(deployedPosition);
       stepper.run();
       return;
@@ -54,7 +54,7 @@ void runRoutine() {
   if (routineState == 3) {
     if (stepper.targetPosition() != 0) {
       stepper.setMaxSpeed(500);
-      stepper.setAcceleration(45);
+      stepper.setAcceleration(30);
       stepper.moveTo(0);
       stepper.run();
       return;
@@ -86,6 +86,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(triggerSwitchPin, INPUT);
   //servo.attach(servoPin);
+  Serial.println("Booted.");
 }
 
 void loop() {
