@@ -1,7 +1,5 @@
 #include <AccelStepper.h>
-#include <Servo.h>
 
-const int servoPin = 4;
 const int triggerSwitchPin = 12;
 const int stepperPulsePin = 7;
 const int stepperDirectionPin = 6;
@@ -14,7 +12,6 @@ bool triggerSwitchPressed = false;
 int routineState = 0; // 0: Ready, 1: Deploying, 2: Deployed, 3: Undeploying
 
 AccelStepper stepper(1, stepperPulsePin, stepperDirectionPin);
-Servo servo;
 
 void startRoutine() {
   if (routineState != 0) {
@@ -61,7 +58,7 @@ void runRoutine() {
     }
     if (stepper.currentPosition() == 0) {
       routineState = 0;
-      Serial.print("Ready.");
+      Serial.println("Ready.");
     } else {
       
       stepper.run();
@@ -85,7 +82,6 @@ void handleTriggerSwitch() {
 void setup() {
   Serial.begin(9600);
   pinMode(triggerSwitchPin, INPUT);
-  //servo.attach(servoPin);
   Serial.println("Booted.");
 }
 
